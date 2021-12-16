@@ -20,6 +20,14 @@ COMMAND=$1
 shift
 
 case $COMMAND in
+    ignore|gitignore)
+        bash "${LOC}/lib/ignore/main.sh" "$@"
+        exit 0
+        ;;
+    install|fix)
+        bash "${LOC}/lib/install/main.sh" "$@"
+        exit 0
+        ;;
     parrot)
         bash "${LOC}/lib/parrot/main.sh"
         exit 0
