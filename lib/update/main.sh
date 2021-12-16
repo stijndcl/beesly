@@ -1,5 +1,7 @@
 #!/bin/sh
 
+LOC="${BASH_SOURCE%/*}"
+
 function match() {
     sudo apt update
     sudo apt install $1
@@ -8,7 +10,8 @@ function match() {
 # No args provided
 if [[ $# -eq 0 ]]
 then
-    sudo apt update
+    cd $LOC
+    git pull
     exit 0;
 fi
 

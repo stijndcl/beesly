@@ -10,11 +10,14 @@ fi
 
 case $1 in
     thefuck|fuck)
-        echo "${LOC}/thefuck.sh"
-        # bash "${LOC}/thefuck.sh"
+        bash "${LOC}/thefuck.sh"
         exit 0
         ;;
     vscode)
+        exit 0
+        ;;
+    yarn)
+        bash "${LOC}/yarn.sh"
         exit 0
         ;;
     *)
