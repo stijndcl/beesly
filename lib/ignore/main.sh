@@ -25,28 +25,30 @@ function aliases() {
     esac
 }
 
-case $LANG in
-    idea|jb|".idea")
-        echo ".idea/" >> .gitignore
-        echo "Added \".idea/\" to .gitignore"
+for var in "$@"
+do
+    LANG=$var
 
-        exit 0
-        ;;
-    *)
-        # Look for aliases
-        aliases
+    case $LANG in
+        idea|jb|jetbrains|".idea")
+            echo ".idea/" >> .gitignore
+            # echo "Added \".idea/\" to .gitignore"
+            ;;
+        *)
+            # Look for aliases
+            aliases
 
-        LANG=$(echo $LANG | sed -e "s/\b\(.\)/\u\1/")
-        template=$(curl "https://raw.githubusercontent.com/github/gitignore/main/${LANG}.gitignore")
+            LANG=$(echo $LANG | sed -e "s/\b\(.\)/\u\1/")
+            template=$(curl "https://raw.githubusercontent.com/github/gitignore/main/${LANG}.gitignore")
 
-        # No result
-        if [[ $template == 404* ]]
-        then
-            printf "\nNo matching template found for \"$1\".\n"
-            exit 1;
-        fi
+            # No result
+            if [[ $template == 404* ]]
+            then
+                printf "\nNo matching template found for \"$1\", skipping argument.\n"
+                exit 1;
+            fi
 
-        printf "$template\n" >> .gitignore
-        exit 0
-        ;;
-esac
+            printf "$template\n" >> .gitignore
+            ;;
+    esac
+done

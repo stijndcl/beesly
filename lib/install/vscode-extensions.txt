@@ -1,0 +1,5 @@
+esbenp.prettier-vscode
+goessner.mdmath
+k--kato.intellij-idea-keybindings
+ms-python.python
+wayou.vscode-todo-highlight

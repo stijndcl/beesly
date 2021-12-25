@@ -9,6 +9,10 @@ then
 fi
 
 case $1 in
+    react)
+        bash "${LOC}/react.sh"
+        exit 0
+        ;;
     thefuck|fuck)
         bash "${LOC}/thefuck.sh"
         exit 0
