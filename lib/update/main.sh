@@ -7,11 +7,17 @@ function match() {
     sudo apt install $1
 }
 
-# No args provided
+# No args provided, update beesly itself
 if [[ $# -eq 0 ]]
 then
     cd $LOC
+
+    # Pull repo
     git pull
+
+    # Update python requirements
+    pip3 install -r lib/requirements.txt
+    
     exit 0;
 fi
 

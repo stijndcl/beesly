@@ -1,8 +1,9 @@
 #!/bin/sh
 LOC="${BASH_SOURCE%/*}"
+CONFIGDIR=$HOME/.beesly
 
 # Init directories if they don't exist
-if [ ! -d ~/.beesly ]
+if [ ! -d $HOME/.beesly ]
 then
     echo "First use, initializing config files & directories..."
     bash "${LOC}/lib/init/main.sh"
@@ -15,13 +16,30 @@ then
     exit 1;
 fi
 
+# Python scripts: activate beesly venv first
+function run-python() {
+    # Name of the script's directory
+    SCRIPTNAME=$1
+    shift
+
+    # Activate venv
+    source "${CONFIGDIR}/venv/bin/activate"
+
+    # Call script & pass all args
+    python3 "${LOC}/lib/${SCRIPTNAME}/main.py" "$@"
+}
+
 # Store command & shift it out
 COMMAND=$1
 shift
 
 case $COMMAND in
+    test)
+        run-python "something" "$@"
+        exit 0
+        ;;
     ignore|gitignore)
-        bash "${LOC}/lib/ignore/main.sh" "$@"
+        run-python "ignore" "$@"
         exit 0
         ;;
     install|fix)
