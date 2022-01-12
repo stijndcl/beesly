@@ -34,8 +34,8 @@ COMMAND=$1
 shift
 
 case $COMMAND in
-    test)
-        run-python "something" "$@"
+    http|request|fetch)
+        run-python "http" "$@"
         exit 0
         ;;
     ignore|gitignore)
